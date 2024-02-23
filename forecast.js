@@ -110,7 +110,7 @@ setInterval(setTime, 1000);
 let button = $(".button");
 let inputValue = $(".inputValue");
 let cnt = 7;
-let apiID = "ab3fa568d39ab45ef40a88ae31b9668f";
+let apiID = "b5f558462160da78810acd0bb997a9fd";//use own apiID
 let Dt = $("#date");
 let Day = $("#day");
 
@@ -165,6 +165,7 @@ button.click(function (e) {
         let index = parseInt(today.substr(3, 2));
         let mon = month[index - 1];
         let desc = data.list[i].weather[0].main;
+     
         let max = Math.ceil(data.list[i].main.temp_max - 273.15);
         let min = Math.floor(data.list[i].main.temp_min - 273.15);
 
@@ -239,19 +240,10 @@ $(document).ready(function () {
               let index = parseInt(today.substr(3, 2));
               let mon = month[index - 1];
               let desc = data.list[i].weather[0].main;
-              
+            
               let max = Math.ceil(data.list[i].main.temp_max - 273.15);
               let min = Math.floor(data.list[i].main.temp_min - 273.15);
-              // $("#forecast").append(`
-              // <div class="forecast">
-              //   <div class="container">
-              //     <span id="date">${mon} ${day}</span>
-              //     <span id="day">Today</span>
-              //     <span id="sicon"><img src="icons/${icon}.png" alt="icon" /></span>
-              //     <span id="summary">${desc}</span>
-              //     <span id="max-min">${max}<sub>°C</sub> / ${min}<sub>°C</sub></span>
-              //   </div>
-              // </div>`);
+        
 
               let x = $(`.date:last`).html();
               let y = `${mon} ${day}`;
@@ -260,7 +252,7 @@ $(document).ready(function () {
                 <tr align="center">
                   <th scope="row" class="date">${mon} ${day}</th>
                   
-                  
+                 
                   <td>${desc}</td>
                   <td>${max}<sub>°C</sub> / ${min}<sub>°C</sub></td>
                 </tr>
@@ -314,23 +306,13 @@ $(document).ready(function () {
          
             let max = Math.ceil(data.list[i].main.temp_max - 273.15);
             let min = Math.floor(data.list[i].main.temp_min - 273.15);
-            // $("#forecast").append(`
-            // <div class="forecast">
-            //   <div class="container">
-            //     <span id="date">${mon} ${day}</span>
-            //     <span id="day">Today</span>
-            //     
-            //     <span id="summary">${desc}</span>
-            //     <span id="max-min">${max}<sub>°C</sub> / ${min}<sub>°C</sub></span>
-            //   </div>
-            // </div>`);
+         
             let x = $(`.date:last`).html();
             let y = `${mon} ${day}`;
             if (x != y) {
               $("tbody").append(`
             <tr align="center">
               <th scope="row" class="date">${mon} ${day}</th>
-              
               
               <td>${desc}</td>
               <td>${max}<sub>°C</sub> / ${min}<sub>°C</sub></td>
