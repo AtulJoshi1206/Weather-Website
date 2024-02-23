@@ -14,49 +14,6 @@ if (window.localStorage.theme == "dark") {
   theme.html("Dark Mode");
 }
 
-function stars() {
-  let count = 200;
-  let scene = $("#nav");
-  let i = 0;
-  while (i < count) {
-    let star = document.createElement("i");
-    let x = Math.floor(Math.random() * window.innerWidth);
-    let y = Math.floor(Math.random() * window.innerHeight);
-    let duration = Math.random() * 10;
-    let size = Math.random() * 2;
-
-    star.style.left = x + "px";
-    star.style.top = y + "px";
-    star.style.width = 1 + size + "px";
-    star.style.height = 1 + size + "px";
-    star.style.animationDuration = 6 + duration + "s";
-    star.style.animationDelay = duration + "s";
-
-    scene.append(star);
-    i++;
-  }
-}
-stars();
-
-function getLocation() {
-  let lng, lat;
-  navigator.geolocation.getCurrentPosition((position) => {
-    lng = position.coords.longitude;
-    lat = position.coords.latitude;
-  });
-  var popup = $("#popup-wrapper");
-
-  if (lat == null && window.localStorage.lat == null) {
-    // alert("GPS not activated!");
-    let error = $("#err");
-    error.html("Please enable the GPS.");
-    popup.addClass("show");
-  } else {
-    popup.removeClass("show");
-  }
-}
-
-getLocation();
 
 $(document).ready(function () {
   let nav = $("#nav");
@@ -92,18 +49,17 @@ let weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 let day = weekdays[date.getDay()];
 function setTime() {
   let date = new Date();
-  let Hours = date.getHours();
-  Hours == 0 ? (Hours = "12") : Hours;
-  let Minutes = date.getMinutes();
-  let Seconds = date.getSeconds();
-  Seconds < 10 ? (Seconds = "0" + Seconds) : Seconds;
-  Minutes < 10 ? (Minutes = "0" + Minutes) : Minutes;
-  Hours > 12 ? (Hours -= 12) : Hours;
-  Hours < 10 ? (Hours = "0" + Hours) : Hours;
+  let hours = date.getHours();
+  let ampm = hours >= 12 ? 'pm' : 'am';
+  hours = hours % 12 || 12; // Convert to 12-hour format
+  let minutes = date.getMinutes();
+  let seconds = date.getSeconds();
+  seconds = seconds < 10 ? '0' + seconds : seconds;
+  minutes = minutes < 10 ? '0' + minutes : minutes;
 
-  // console.log(Hours + ":" + Minutes);
-  Time.html(Hours + ":" + Minutes + ":" + Seconds + "<sub>am</sub>");
+  Time.html(`${hours}:${minutes}:${seconds} <sub>${ampm}</sub>`);
 }
+
 setTime();
 setInterval(setTime, 1000);
 
